@@ -1,0 +1,30 @@
+name: delpoy
+on:
+  workflow_run:
+    workflows: ["build"]
+    types: 
+      - completed
+jobs:
+  delpoy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH Remote deploy
+        uses: docker://evaneos/ssh-action:0.1.0
+        with: 
+          hosts: 47.99.66.0
+          user: ${{ secrets.REMOTE_USERNAME }}
+          password: ${{ secrets.REMOTE_PASSWORD }}
+          commands: |
+            have=$(docker inspect --format='{{.Name}}' $(docker ps -aq) |grep route-management  | cut -d"/" -f2)
+            if [[ "$have" == route-proxy ]]; then \
+              docker container stop route-management; \
+              docker container rm route-management; \
+            fi
+            docker rmi registry.cn-hongkong.aliyuncs.com/littledian/route-management:latest
+            docker run \
+              -p 3001:3000 \
+              --name route-management \
+              --restart always \
+              -e REMOTE_HOST=http://172.16.162.249 \
+              -e BASE_URL=/management \
+              -d registry.cn-hongkong.aliyuncs.com/littledian/route-management:latest
