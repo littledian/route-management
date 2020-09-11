@@ -14,16 +14,6 @@ app.prepare().then(async () => {
 
   server.use(helmet());
   server.use(compression());
-  server.use(express.json());
-
-  // give all Nextjs's request to Nextjs server
-  // server.get('/_next/*', (req, res) => {
-  //   handle(req, res);
-  // });
-  //
-  // server.get('/static/*', (req, res) => {
-  //   handle(req, res);
-  // });
 
   server.use(
     '/api/*',
@@ -39,6 +29,6 @@ app.prepare().then(async () => {
 
   server.listen(3000, (err) => {
     if (err) throw err;
-    console.info('> Ready on http://localhost:3000');
+    console.info(`> Ready on http://localhost:3000${process.env.BASE_URL || ''}`);
   });
 });

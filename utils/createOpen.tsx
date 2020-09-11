@@ -4,7 +4,7 @@ import { ConfigProvider } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 
 export interface ModalComponentProps<T> {
-  onClose: () => void;
+  onCancel: () => void;
   afterClose?: () => void;
   onOk: (data: T) => void;
   visible: boolean;
@@ -44,7 +44,6 @@ export default function createOpen<D, P extends ModalComponentProps<D>>(
       }
 
       function render(props: P) {
-        console.log(props);
         ReactDOM.render(
           <ConfigProvider locale={zhCN}>
             <Component {...props} />
