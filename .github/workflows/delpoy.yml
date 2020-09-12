@@ -16,7 +16,7 @@ jobs:
           password: ${{ secrets.REMOTE_PASSWORD }}
           commands: |
             have=$(docker inspect --format='{{.Name}}' $(docker ps -aq) |grep route-management  | cut -d"/" -f2)
-            if [[ "$have" == route-proxy ]]; then \
+            if [[ "$have" == route-management ]]; then \
               docker container stop route-management; \
               docker container rm route-management; \
             fi
