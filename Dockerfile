@@ -1,4 +1,4 @@
-FROM 12.18.3-alpine3.10
+FROM node:12.18.3-alpine3.10
 MAINTAINER littledian 1197434548@qq.com
 
 WORKDIR /app
