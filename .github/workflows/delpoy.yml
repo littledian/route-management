@@ -25,6 +25,6 @@ jobs:
               -p 3001:3000 \
               --name route-management \
               --restart always \
-              -e REMOTE_HOST=http://172.16.162.249 \
+              -e REMOTE_HOST=http://172.16.162.249:3000 \
               -e BASE_URL=/management \
               -d registry.cn-hongkong.aliyuncs.com/littledian/route-management:latest
