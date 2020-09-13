@@ -52,13 +52,13 @@ const ProxyItemEditor: MemoExoticComponent<ComponentType<ProxyItemEditorProps>> 
         onCancel={onCancel}
         afterClose={afterClose}
         title={id ? '编辑代理' : '创建代理'}
-        ref={ref}
       >
         <Form<FormDataType>
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 18 }}
           form={form}
           labelAlign="left"
+          ref={ref}
         >
           <Form.Item
             label="URL匹配"
