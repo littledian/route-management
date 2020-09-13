@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Divider, message, Table, Typography, Space } from 'antd';
+import { Button, Divider, message, Table, Typography, Space, Tag } from 'antd';
 import {
   createProxyItem,
   getProxyList,
@@ -64,24 +64,32 @@ const Home = (props: HomeProps) => {
         </Button>
       </div>
       <Table<ProxyItem> dataSource={list} loading={loading} rowKey="id">
-        <Table.Column title="URL匹配" key="urlPattern" dataIndex="urlPattern" />
-        <Table.Column title="代理服务" key="urlPattern" dataIndex="proxyServer" />
-        <Table.Column title="测试URL" key="urlPattern" dataIndex="testUrl" />
-        <Table.Column
+        <Table.Column<ProxyItem> title="URL匹配" key="urlPattern" dataIndex="urlPattern" />
+        <Table.Column<ProxyItem> title="代理服务" key="urlPattern" dataIndex="proxyServer" />
+        <Table.Column<ProxyItem> title="测试URL" key="urlPattern" dataIndex="testUrl" />
+        <Table.Column<ProxyItem>
           title="状态"
           key="status"
-          render={(value) => getProxyStatusLabelByCode(value.status)}
+          render={(_: any, row) => (
+            <Tag color={row.status === ProxyStatus.running ? 'green' : 'red'}>
+              {getProxyStatusLabelByCode(row.status)}
+            </Tag>
+          )}
         />
-        <Table.Column
+        <Table.Column<ProxyItem>
           title="操作"
           key="operation"
-          render={(value) => (
+          render={(_: any, value) => (
             <Space>
               {value.status !== ProxyStatus.running && (
                 <Button onClick={() => handleStart(value)}>启动</Button>
               )}
               {value.status !== ProxyStatus.stopped && (
-                <Button danger onClick={() => handleStop(value)}>
+                <Button
+                  disabled={value.urlPattern === '/management'}
+                  danger
+                  onClick={() => handleStop(value)}
+                >
                   停止
                 </Button>
               )}

@@ -4,7 +4,8 @@ import React, {
   memo,
   MemoExoticComponent,
   useCallback,
-  useEffect
+  useEffect,
+  useState
 } from 'react';
 import { Form, Input, Modal, Select } from 'antd';
 import { getProxyItemById, ProxyItem, ProxyStatus, proxyStatusMapper } from '@/services/proxy';
@@ -24,6 +25,7 @@ export interface ProxyItemEditorProps extends ModalComponentProps<ModalData> {
 const ProxyItemEditor: MemoExoticComponent<ComponentType<ProxyItemEditorProps>> = memo(
   forwardRef((props: ProxyItemEditorProps, ref: any) => {
     const { onOk, onCancel, afterClose, id, visible } = props;
+    const [disableStatus, setDisableStatus] = useState(true);
     const [form] = Form.useForm();
     const handleOk = useCallback(async () => {
       await form.validateFields();
@@ -34,10 +36,12 @@ const ProxyItemEditor: MemoExoticComponent<ComponentType<ProxyItemEditorProps>> 
     useEffect(() => {
       if (!id) {
         form.setFieldsValue({ status: ProxyStatus.running });
+        setDisableStatus(false);
         return;
       }
       getProxyItemById(id).then((res) => {
         form.setFieldsValue(res);
+        setDisableStatus(res.urlPattern === '/management');
       });
     }, [id, form]);
 
@@ -48,6 +52,7 @@ const ProxyItemEditor: MemoExoticComponent<ComponentType<ProxyItemEditorProps>> 
         onCancel={onCancel}
         afterClose={afterClose}
         title={id ? '编辑代理' : '创建代理'}
+        ref={ref}
       >
         <Form<FormDataType>
           labelCol={{ span: 6 }}
@@ -77,7 +82,7 @@ const ProxyItemEditor: MemoExoticComponent<ComponentType<ProxyItemEditorProps>> 
             <Input placeholder="请填写测试URL" />
           </Form.Item>
           <Form.Item label="状态" name="status" rules={[{ required: true }]}>
-            <Select>
+            <Select disabled={disableStatus}>
               {Object.keys(proxyStatusMapper).map((key) => (
                 <Select.Option value={Number(key)} key={key}>
                   {proxyStatusMapper[key]}
