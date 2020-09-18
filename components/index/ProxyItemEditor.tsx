@@ -63,16 +63,19 @@ const ProxyItemEditor: MemoExoticComponent<ComponentType<ProxyItemEditorProps>> 
           <Form.Item
             label="URL匹配"
             name="urlPattern"
-            rules={[{ required: true, message: '请填写匹配规则' }]}
+            rules={[
+              { required: true, message: '请填写匹配规则' },
+              { pattern: /^(?!\/management)/, message: '规则不能以/management开头' }
+            ]}
           >
-            <Input placeholder="请填写匹配规则" />
+            <Input placeholder="请填写匹配规则" disabled={disableStatus} />
           </Form.Item>
           <Form.Item
             label="代理服务"
             name="proxyServer"
             rules={[{ required: true, message: '请填写代理服务', type: 'url' }]}
           >
-            <Input placeholder="请填写代理服务" />
+            <Input placeholder="请填写代理服务" disabled={disableStatus} />
           </Form.Item>
           <Form.Item
             label="测试URL"
