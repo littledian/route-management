@@ -55,6 +55,15 @@ const lessConfig = withLess({
 
 module.exports = {
   webpack(config, options) {
+    // externals react and react-dom
+    if (!options.isServer) {
+      config.externals = {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+        moment: 'moment',
+        antd: 'antd'
+      };
+    }
     config.resolve.alias = config.resolve.alias || {};
     config.resolve.alias['@'] = path.resolve(__dirname);
     const temp = lessConfig.webpack(config, options);

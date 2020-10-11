@@ -1,6 +1,18 @@
+:global(body) {
+  display: flex;
+  flex-direction: column;
+}
+
+:global(.footer) {
+  flex-shrink: 0;
+}
+
+:global(#__next) {
+  flex: 1;
+  overflow: hidden;
+}
+
 .root {
-  width: 100vw;
-  height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -15,17 +27,6 @@
 
 .content {
   flex: 1;
-}
-
-.foot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 12px;
-}
-
-.link {
-  font-size: 12px;
 }
 
 .menu {

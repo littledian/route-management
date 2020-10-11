@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Divider, message, Table, Typography, Space, Tag } from 'antd';
 import {
   createProxyItem,

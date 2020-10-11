@@ -12,7 +12,11 @@ const handle = app.getRequestHandler();
 app.prepare().then(async () => {
   const server = express();
 
-  server.use(helmet());
+  server.use(
+    helmet({
+      contentSecurityPolicy: false
+    })
+  );
   server.use(compression());
 
   server.use(
