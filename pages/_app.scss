@@ -10,12 +10,15 @@
 :global(#__next) {
   flex: 1;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .root {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .main {
@@ -23,16 +26,4 @@
   height: 100%;
   position: relative;
   flex: 1;
-}
-
-.content {
-  flex: 1;
-}
-
-.menu {
-  width: 300px;
-}
-
-.docContainer {
-  padding: 32px 20px;
 }

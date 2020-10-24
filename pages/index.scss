@@ -1,6 +1,8 @@
 .root {
   height: 100%;
   padding: 24px;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav {
@@ -8,4 +10,9 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
+}
+
+.table {
+  flex: 1;
+  overflow: auto;
 }

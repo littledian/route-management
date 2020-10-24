@@ -67,5 +67,6 @@
       "stylelint --fix",
       "git add"
     ]
-  }
+  },
+  "sideEffects": false
 }

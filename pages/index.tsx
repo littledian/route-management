@@ -63,11 +63,28 @@ const Home = (props: HomeProps) => {
           添加
         </Button>
       </div>
-      <Table<ProxyItem> dataSource={list} loading={loading} rowKey="id">
-        <Table.Column<ProxyItem> title="URL匹配" key="urlPattern" dataIndex="urlPattern" />
-        <Table.Column<ProxyItem> title="代理服务" key="urlPattern" dataIndex="proxyServer" />
-        <Table.Column<ProxyItem> title="测试URL" key="urlPattern" dataIndex="testUrl" />
+      <Table<ProxyItem>
+        dataSource={list}
+        loading={loading}
+        rowKey="id"
+        className={styles.table}
+        pagination={false}
+      >
         <Table.Column<ProxyItem>
+          title="URL匹配"
+          key="urlPattern"
+          dataIndex="urlPattern"
+          width="25%"
+        />
+        <Table.Column<ProxyItem>
+          title="代理服务"
+          key="urlPattern"
+          dataIndex="proxyServer"
+          width="20%"
+        />
+        <Table.Column<ProxyItem> title="测试URL" key="urlPattern" dataIndex="testUrl" width="25%" />
+        <Table.Column<ProxyItem>
+          width="15%"
           title="状态"
           key="status"
           render={(_: any, row) => (
@@ -77,6 +94,7 @@ const Home = (props: HomeProps) => {
           )}
         />
         <Table.Column<ProxyItem>
+          width="15%"
           title="操作"
           key="operation"
           render={(_: any, value) => (
